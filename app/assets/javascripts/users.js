@@ -11,7 +11,7 @@ $(document).on('turbolinks:load', function(){
   submitBtn.click(function(event){
     //prevent default submission behavior.
     event.preventDefault();
-    submitBtn.val("Processing").prop('disabled', true)
+    submitBtn.val("Processing").prop('disabled', true);
     
     //Collect the credit card fields.
     var ccNum = $('#card_number').val(), 
@@ -42,7 +42,7 @@ $(document).on('turbolinks:load', function(){
     
     if (error) {
       //If there are card errors, dont send to Stripe.
-      submitBtn.prop('disabled', false).val("Sign Up")
+      submitBtn.prop('disabled', false).val("Sign Up");
     } else {
       //Send the card info to Srtipe
       Stripe.createToken({
@@ -60,16 +60,10 @@ $(document).on('turbolinks:load', function(){
   function stripeResponseHandler(status, response) {
     //Get the token from the response
     var token = response.id;
-    
     //Inject card token as hidden field into form.
     theForm.append( $('<input type="hidden" name="user[stripe_card_token]">').val(token) );
-  
     //Submit form to our Rails app.
     theForm.get(0).submit();
     
   }
-  
-
-
-  //Submit form to our Rails app.
 });
